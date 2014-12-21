@@ -3,7 +3,18 @@ TechSupport::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  root 'tickets#new'
+  authenticated :staff do
+    root to: 'tickets#unassigned', as: :authenticated
+  end
 
-  resources :tickets
+  root to: 'tickets#new'
+
+  resources :tickets do
+    member do
+      post :answer
+    end
+    collection do
+      get '/by_email/:email', action: 'by_email', as: 'by_email', constraints: { email: /[^\/]+/ }
+    end
+  end
 end

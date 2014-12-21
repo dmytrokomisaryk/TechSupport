@@ -1,7 +1,8 @@
 %p
   Hello #{@receiver_name},
 %p
-  Thank you for submitting your question to our staff. We will respond to your question by email.
+  = @answer
+%br
 %p
   Anytime you wish you can view #{link_to 'your questions online', @ticket_path}.
 %br

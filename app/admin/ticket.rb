@@ -1,5 +1,5 @@
 ActiveAdmin.register Ticket do
-  permit_params :customer_name, :customer_email, :message, :staff_id
+  permit_params :customer_name, :customer_email, :question, :answer, :staff_id
 
   form do |f|
     f.inputs 'Customer details' do
@@ -8,7 +8,7 @@ ActiveAdmin.register Ticket do
     end
 
     f.inputs 'Issue' do
-      f.input :message
+      f.input :question
     end
 
     f.inputs 'Assign' do

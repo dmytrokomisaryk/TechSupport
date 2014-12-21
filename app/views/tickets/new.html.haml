@@ -1,11 +1,8 @@
 .new-ticket-section
   .container
-    %h2
-      Hello dear customer :)
-    %h3
-      Unfortunately you faced with some problems.
-      %br
-      Please provide your questions and we will answer you as quickly as we can.
+    .title
+      %h5
+        Please ask questions and we will answer you as quickly as we can.
     = form_for(@ticket, html: {class: :new_ticket}) do |f|
       .form-group
         %label{for: 'customer_name'} Name:
@@ -14,6 +11,6 @@
         %label{for: 'customer_email'} Email:
         = f.text_field :customer_email, id: :customer_email, class: 'form-control', placeholder: 'Enter email', type: :email
       .form-group
-        %label{for: 'message'} Questions?:
-        = f.text_area :message, id: :message, class: 'form-control', placeholder: 'Enter message', rows: 10
+        %label{for: 'question'} Questions?:
+        = f.text_area :question, id: :question, class: 'form-control', placeholder: 'Enter question', rows: 10
       = f.submit 'Request', class: 'btn btn-default'

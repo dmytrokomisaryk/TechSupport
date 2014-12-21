@@ -69,7 +69,8 @@ ActiveRecord::Schema.define(version: 20141220175423) do
   create_table "tickets", force: true do |t|
     t.string   "customer_name"
     t.string   "customer_email"
-    t.text     "message"
+    t.text     "question"
+    t.text     "answer"
     t.string   "status"
     t.integer  "staff_id"
     t.datetime "created_at"

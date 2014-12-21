@@ -1,9 +1,23 @@
-.new-ticket-section .container {
+header {
+  background: #009AC7;
+  height: 75px;
+  color: white;
+}
+
+header h2 {
+  float: left;
+}
+
+header input {
+  float: right;
+  margin-top:  20px;
+}
+
+header .container{
   width: 600px;
 }
 
 .new-ticket-section .new_ticket {
-  width: 600px;
   background-color: #fff;
   border-color: #ddd;
   border-width: 1px;
@@ -17,3 +31,44 @@
   width: 100%;
   max-width: 100%;
 }
+
+.new-ticket-section .container,
+.tickets-history-section .container,
+.unassigned-tickets .container{
+  width: 600px;
+}
+
+.tickets-history-section .edit_ticket_button,
+.tickets-history-section .update_ticket_button {
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.tickets-history-section .update_ticket_button,
+.tickets-history-section .cancel_link{
+  display: none;
+}
+
+.tickets-history-section .edit_ticket textarea{
+  width: 100%;
+  max-width: 100%;
+}
+
+
+.unassigned-tickets .ticket-answer {
+  padding-bottom: 5px;
+}
+
+.unassigned-tickets .ticket-answer,
+.unassigned-tickets .send_ticket_button,
+.unassigned-tickets .cancel_link{
+  display: none;
+}
+
+.unassigned-tickets .ticket-answer textarea {
+  width: 100%;
+  max-width: 100%;
+}
+
+

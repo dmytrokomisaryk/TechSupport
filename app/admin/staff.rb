@@ -6,6 +6,7 @@ ActiveAdmin.register Staff do
     column :last_name
     column :email
     column :created_at
+    actions
   end
 
   form do |f|

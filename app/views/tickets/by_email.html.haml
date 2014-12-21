@@ -1,0 +1,16 @@
+.tickets-history-section
+  .container
+    - @tickets.each do |ticket|
+      .bs-callout.bs-callout-info
+        %h4
+          #{ticket.created_at.strftime('%a, %u %b %Y %I:%M %p')}
+        %p
+        = form_for(ticket, remote: true) do |f|
+          .form-group
+            = f.text_area :question, disabled: true, class: :text, rows: 7
+            %br
+            %input{ class: :edit_ticket_button, onclick: "Ticket.edit(#{ticket.id});return false;", type: :submit, value: 'Edit' }
+            %input{ class: :update_ticket_button, onclick: "Ticket.update(#{ticket.id});return false;", type: :submit, value: 'Update' }
+            %a{href: 'javascript:void(0)', type: :submit, class: :cancel_link, onclick: "Ticket.cancelEdit(#{ticket.id});"}
+              Cancel
+      %br
