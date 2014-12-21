@@ -1,0 +1,19 @@
+.new-ticket-section .container {
+  width: 600px;
+}
+
+.new-ticket-section .new_ticket {
+  width: 600px;
+  background-color: #fff;
+  border-color: #ddd;
+  border-width: 1px;
+  border-radius: 4px 4px;
+  border-style: solid;
+  margin: auto;
+  padding: 15px;
+}
+
+.new-ticket-section .new_ticket textarea {
+  width: 100%;
+  max-width: 100%;
+}
