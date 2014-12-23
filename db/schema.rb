@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20141220175423) do
     t.string   "customer_email"
     t.text     "question"
     t.text     "answer"
-    t.string   "state"
+    t.integer  "state"
     t.integer  "staff_id"
     t.datetime "created_at"
     t.datetime "updated_at"

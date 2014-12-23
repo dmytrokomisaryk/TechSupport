@@ -30,10 +30,11 @@
 
   answer: (id) ->
     ticketContainer = $('#ticket_' + id);
-    ticketContainer.children('div').children('.answer_ticket_button').hide()
-    ticketContainer.children('div').children('.ticket-answer').show()
-    ticketContainer.children('div').children('.send_ticket_button').show()
-    ticketContainer.children('div').children('.cancel_link').show()
+    divWithActions = ticketContainer.children('div')
+    divWithActions.children('.answer_ticket_button').hide()
+    divWithActions.children('.ticket-answer').show()
+    divWithActions.children('.send_ticket_button').show()
+    divWithActions.children('.cancel_link').show()
 
   sendAnswer: (id) ->
     ticketContainer = $('#ticket_' + id)
@@ -49,7 +50,15 @@
 
   cancelAnswer: (id) ->
     ticketContainer = $('#ticket_' + id);
-    ticketContainer.children('div').children('.answer_ticket_button').show()
-    ticketContainer.children('div').children('.ticket-answer').hide()
-    ticketContainer.children('div').children('.send_ticket_button').hide()
-    ticketContainer.children('div').children('.cancel_link').hide()
+    divWithActions = ticketContainer.children('div')
+    divWithActions.children('.answer_ticket_button').show()
+    divWithActions.children('.ticket-answer').hide()
+    divWithActions.children('.send_ticket_button').hide()
+    divWithActions.children('.cancel_link').hide()
+
+  close: (id) ->
+    $.ajax('/tickets/' + id + '/close', {
+      type: 'post',
+      success: (response)->
+        $('#ticket-section-' + id).replaceWith(response);
+    })

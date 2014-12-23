@@ -19,6 +19,14 @@ class Ticket < ActiveRecord::Base
     event :open do
       transition STATUSES[:unassigned] => STATUSES[:open]
     end
+
+    event :close do
+      transition [STATUSES[:unassigned], STATUSES[:open]] => STATUSES[:closed]
+    end
+  end
+
+  def closed?
+    state == STATUSES[:closed]
   end
 
   private

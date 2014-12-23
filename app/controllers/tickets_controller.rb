@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
 
-  before_filter :authenticate_staff!, except: [:new, :by_email, :create, :update]
+  before_filter :authenticate_staff!, except: [:new, :by_email, :create, :update, :close]
 
   def unassigned
     @tickets = Ticket.unassigned
@@ -20,19 +20,28 @@ class TicketsController < ApplicationController
   end
 
   def update
-    ticket = Ticket.find(params[:id])
-    ticket.update_attribute(:question, params[:question])
+    current_ticket.update_attribute(:question, params[:question])
     render text: :ok
   end
 
   def answer
-    ticket = Ticket.find(params[:id])
+    ticket = current_ticket
     ticket.update_attributes(answer:  params[:answer], staff_id: current_staff.id)
     ticket.send_answer_to_customer
     render text: :ok
   end
 
+  def close
+    ticket = current_ticket
+    ticket.close
+    render partial: 'ticket', locals: { ticket: ticket }
+  end
+
   private
+
+  def current_ticket
+    @ticket ||= Ticket.find(params[:id])
+  end
 
   def ticket_params
     params.require(:ticket).permit(:customer_name, :customer_email, :question, :answer)

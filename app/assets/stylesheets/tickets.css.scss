@@ -55,6 +55,14 @@ header .container{
   max-width: 100%;
 }
 
+.tickets-history-section .close_ticket_button {
+  background: red;
+  float: right;
+}
+
+.tickets-history-section .state-closed span {
+  color: red;
+}
 
 .unassigned-tickets .ticket-answer {
   padding-bottom: 5px;
