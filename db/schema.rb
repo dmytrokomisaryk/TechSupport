@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141220175423) do
+ActiveRecord::Schema.define(version: 20141223211458) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -66,11 +66,18 @@ ActiveRecord::Schema.define(version: 20141220175423) do
   add_index "staffs", ["email"], name: "index_staffs_on_email", unique: true, using: :btree
   add_index "staffs", ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true, using: :btree
 
+  create_table "ticket_answers", force: true do |t|
+    t.integer  "ticket_id"
+    t.text     "text"
+    t.string   "author"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tickets", force: true do |t|
     t.string   "customer_name"
     t.string   "customer_email"
     t.text     "question"
-    t.text     "answer"
     t.integer  "state"
     t.integer  "staff_id"
     t.datetime "created_at"

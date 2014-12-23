@@ -13,6 +13,8 @@ TechSupport::Application.routes.draw do
     member do
       post :answer
       post :close
+      post :assign
+      post :reply
     end
     collection do
       get '/by_email/:email', action: 'by_email', as: 'by_email', constraints: { email: /[^\/]+/ }

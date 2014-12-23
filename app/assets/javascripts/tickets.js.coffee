@@ -1,4 +1,23 @@
 @Ticket =
+  assign: (id)->
+    $.ajax('/tickets/' + id + '/assign', {
+      type: 'post',
+      success: (response)->
+        $('#ticket_' + id).replaceWith(response);
+    })
+
+  reply: (id)->
+    ticketContainer = $('#edit_ticket_' + id);
+    formGroup = ticketContainer.children('.form-group')
+    textArea = formGroup.children('#reply')
+    $.ajax('/tickets/' + id + '/reply', {
+      data: '{"message":"' + textArea.val() + '"}',
+      type: 'post',
+      contentType: 'application/json; charset=utf-8',
+      success: (response)->
+        $('#ticket-section-' + id).replaceWith(response);
+    })
+
   edit: (id) ->
     ticketContainer = $('#edit_ticket_' + id);
     formGroup = ticketContainer.children('.form-group')

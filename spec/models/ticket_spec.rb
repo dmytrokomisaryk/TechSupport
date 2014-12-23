@@ -5,7 +5,7 @@ describe Ticket do
     let(:ticket) { Ticket.create(
         customer_name: 'John',
         customer_email: 'john@example.com',
-        message: 'test'
+        question: 'test'
     ) }
     it 'should send email to customer' do
       expect { ticket.notify_customer }.to change { ActionMailer::Base.deliveries.count }.by(1)

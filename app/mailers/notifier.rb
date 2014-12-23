@@ -13,9 +13,19 @@ class Notifier < ActionMailer::Base
   def send_answer_to_customer(ticket)
     @ticket_path = by_email_tickets_path(ticket.customer_email, only_path: false)
     @receiver_name = ticket.customer_name
-    @answer = ticket.answer
+    @answer = ticket.answers.last
     template = render partial: 'send_answer'
     mail(to: ticket.customer_email, subject: 'A staff member has replied to your question') do |format|
+      format.html { template }
+    end
+  end
+
+  def send_reply_to_customer(ticket)
+    @ticket_path = by_email_tickets_path(ticket.customer_email, only_path: false)
+    @receiver_name = ticket.staff.full_name
+    @answer = ticket.answers.last
+    template = render partial: 'send_reply'
+    mail(to: ticket.customer_email, subject: 'A customer has replied to you') do |format|
       format.html { template }
     end
   end

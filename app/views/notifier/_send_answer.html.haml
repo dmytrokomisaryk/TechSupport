@@ -1,10 +1,10 @@
 %p
   Hello #{@receiver_name},
 %p
-  = @answer
+  = @answer.text
 %br
 %p
-  Anytime you wish you can view #{link_to 'your questions online', @ticket_path}.
+  Anytime you wish you can view and reply #{link_to 'your questions online', @ticket_path}.
 %br
 %br
 Best regards,

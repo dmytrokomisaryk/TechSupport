@@ -10,11 +10,19 @@
   = form_for(ticket, remote: true) do |f|
     .form-group
       = f.text_area :question, disabled: true, class: :text, rows: 7
-      - unless ticket.closed?
+      - ticket.answers.each do |answer|
+        .bs-callout
+          %h5
+            Reply from #{answer.author} on #{format_time(answer.created_at)}
+          %p
+            = answer.text
+      - unless ticket.closed? || ticket.has_answer?
         %br
         %input{ class: :edit_ticket_button, onclick: "Ticket.edit(#{ticket.id});return false;", type: :submit, value: 'Edit' }
         %input{ class: :update_ticket_button, onclick: "Ticket.update(#{ticket.id});return false;", type: :submit, value: 'Update' }
         %a{href: 'javascript:void(0)', type: :submit, class: :cancel_link, onclick: "Ticket.cancelEdit(#{ticket.id});"}
           Cancel
         %input{ class: :close_ticket_button, onclick: "Ticket.close(#{ticket.id});return false;", type: :submit, value: 'Close' }
-  %br
+      - else
+        = text_area_tag :reply, '', { id: :reply, class: 'form-control', placeholder: 'Enter message', rows: 7 }
+        %input{ class: :reply_ticket_button, onclick: "Ticket.reply(#{ticket.id});return false;", type: :submit, value: 'Reply' }

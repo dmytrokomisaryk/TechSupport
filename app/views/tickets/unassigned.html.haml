@@ -1,15 +1,4 @@
 .unassigned-tickets
   .container
     - @tickets.each do |ticket|
-      .div{id: "ticket_#{ticket.id}"}
-        .bs-callout.bs-callout-info
-          %h4
-            Message from #{ticket.customer_name} on #{ticket.created_at.strftime('%a, %u %b %Y %I:%M %p')}
-          %p
-            = ticket.question
-          = form_for(ticket, action: :answer, remote: true, html: { class: 'ticket-answer' }) do |f|
-            = f.text_area :answer, id: :answer, class: 'form-control', placeholder: 'Enter answer', rows: 7
-          %input{ class: :answer_ticket_button, onclick: "Ticket.answer(#{ticket.id});return false;", type: :submit, value: 'Answer' }
-          %input{ class: :send_ticket_button, onclick: "Ticket.sendAnswer(#{ticket.id});return false;", type: :submit, value: 'Send' }
-          %a{href: 'javascript:void(0)', type: :submit, class: :cancel_link, onclick: "Ticket.cancelAnswer(#{ticket.id});"}
-            Cancel
+      = render partial: 'ticket_answer', locals: { ticket: ticket }

@@ -1,7 +1,10 @@
 class Ticket < ActiveRecord::Base
+  include TicketNotifier
+
   STATUSES = { unassigned: 0, open: 1, on_hold: 2, closed: 3 }
 
   belongs_to :staff
+  has_many :answers, foreign_key: 'ticket_id', class_name: 'TicketAnswer'
 
   before_validation(on: :create) do
     self.state = STATUSES[:unassigned] if self.state.blank?
@@ -9,11 +12,10 @@ class Ticket < ActiveRecord::Base
 
   after_create :notify_customer
 
-  scope :unassigned, -> {  where(staff_id: nil) }
-
-  def send_answer_to_customer
-    Notifier.send_answer_to_customer(self).deliver
-  end
+  scope :order_by_created_at_desc, -> { order('created_at DESC') }
+  scope :unassigned, -> {  where(staff_id: nil).order_by_created_at_desc }
+  scope :assigned_to_staff, -> (id) { where(staff_id: id).order_by_created_at_desc }
+  scope :by_email, -> (email) { where(customer_email: email).order_by_created_at_desc }
 
   state_machine :state, initial: STATUSES[:unassigned] do
     event :open do
@@ -29,9 +31,11 @@ class Ticket < ActiveRecord::Base
     state == STATUSES[:closed]
   end
 
-  private
+  def assigned?
+    staff_id.present?
+  end
 
-  def notify_customer
-    Notifier.success_request(self).deliver
+  def has_answer?
+    answers.any?
   end
 end

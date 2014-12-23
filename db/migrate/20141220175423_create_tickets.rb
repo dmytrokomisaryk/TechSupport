@@ -4,7 +4,6 @@ class CreateTickets < ActiveRecord::Migration
       t.string :customer_name
       t.string :customer_email
       t.text :question
-      t.text :answer
       t.integer :state
       t.references :staff
       t.timestamps

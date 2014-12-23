@@ -64,6 +64,10 @@ header .container{
   color: red;
 }
 
+.tickets-history-section .reply_ticket_button {
+  margin-top: 10px;
+}
+
 .unassigned-tickets .ticket-answer {
   padding-bottom: 5px;
 }
@@ -79,4 +83,11 @@ header .container{
   max-width: 100%;
 }
 
+.unassigned-tickets .assign_ticket_button {
+  background: #009AC7;
+}
+
+.unassigned-tickets .assign_ticket_button:host-context {
+  background: cadetblue!important;
+}
 
