@@ -36,6 +36,7 @@ gem 'devise',              github: 'plataformatec/devise'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'activeadmin',         github: 'gregbell/active_admin'
 
+gem 'state_machine'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.1.0'
