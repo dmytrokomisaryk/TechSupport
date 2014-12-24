@@ -8,25 +8,34 @@
         closed!
   %p
   = form_for(ticket, remote: true) do |f|
+    - if ticket.errors.any?
+      .bs-callout.bs-callout-danger
+        - ticket.errors.full_messages.each do |message|
+          %p
+            = message
     .form-group
       %label{for: 'subject'} Subject:
-      = f.text_field :subject, disabled: true, class: :text
+      = f.text_field :subject, disabled: ticket.errors.blank?, class: :text
     .form-group
       %label{for: 'question'} Question?:
-      = f.text_area :question, disabled: true, class: :text, rows: 7
+      = f.text_area :question, disabled: ticket.errors.blank?, class: :text, rows: 7
       - ticket.answers.each do |answer|
         .bs-callout
           %h5
             Reply from #{answer.author} on #{format_time(answer.created_at)}
           %p
             = answer.text
-      - unless ticket.closed? || ticket.has_answer?
+      - if ticket.closed? || ticket.has_answer?
+        = text_area_tag :reply, '', { id: :reply, class: 'form-control', placeholder: 'Enter message', rows: 7 }
+        %input{ class: :reply_ticket_button, onclick: "Ticket.reply(#{ticket.id});return false;", type: :submit, value: 'Reply' }
+      - else
         %br
         %input{ class: :edit_ticket_button, onclick: "Ticket.edit(#{ticket.id});return false;", type: :submit, value: 'Edit' }
         %input{ class: :update_ticket_button, onclick: "Ticket.update(#{ticket.id});return false;", type: :submit, value: 'Update' }
         %a{href: 'javascript:void(0)', type: :submit, class: :cancel_link, onclick: "Ticket.cancelEdit(#{ticket.id});"}
           Cancel
         %input{ class: :close_ticket_button, onclick: "Ticket.close(#{ticket.id});return false;", type: :submit, value: 'Close' }
-      - else
-        = text_area_tag :reply, '', { id: :reply, class: 'form-control', placeholder: 'Enter message', rows: 7 }
-        %input{ class: :reply_ticket_button, onclick: "Ticket.reply(#{ticket.id});return false;", type: :submit, value: 'Reply' }
+:javascript
+  if (#{ticket.errors.any?}) {
+    Ticket.edit(#{ticket.id})
+  }

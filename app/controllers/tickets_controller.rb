@@ -26,13 +26,12 @@ class TicketsController < ApplicationController
     end
   end
 
-  def successfully_created
-
-  end
+  def successfully_created; end
 
   def update
-    current_ticket.update_attribute(:question, params[:question])
-    render text: :ok
+    @ticket = current_ticket
+    @ticket.update_attributes(question: params[:question], subject: params[:subject])
+    render partial: 'ticket', locals: { ticket: @ticket }
   end
 
   def answer

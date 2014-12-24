@@ -32,17 +32,17 @@
 
   update: (id) ->
     Spinner.show()
-    ticketContainer = $('#edit_ticket_' + id);
-    formGroup = ticketContainer.children('.form-group')
-    textArea = formGroup.children('.text')
+    inputSubject = $('#ticket_subject')
+    textArea = $('#ticket_question')
+
     self = @
     $.ajax('/tickets/' + id, {
-      data: '{"question":"' +  textArea.val() + '"}',
+      data: '{"subject":"' +  inputSubject.val() + '", "question":"' +  textArea.val() + '"}',
       type: 'put',
       contentType: 'application/json; charset=utf-8',
-      success: ->
+      success: (response) ->
         Spinner.hide()
-        self.cancelEdit(id)
+        $('#ticket-section-' + id).replaceWith(response)
     })
 
   cancelEdit: (id) ->

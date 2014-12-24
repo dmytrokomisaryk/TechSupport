@@ -18,7 +18,9 @@ class Ticket < ActiveRecord::Base
   scope :by_email, -> (email) { where(customer_email: email).order_by_created_at_desc }
   scope :search_by_subject, -> (query) { where('subject like ?', "%#{query}%") }
 
-  validates_presence_of :customer_name, :customer_email, :subject, :question
+  validates_presence_of :customer_name, :customer_email
+  validates :subject, presence: true, allow_blank: false
+  validates :question, presence: true, allow_blank: false
 
   state_machine :state, initial: STATUSES[:unassigned] do
     event :assigned do

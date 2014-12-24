@@ -1,4 +1,3 @@
 .tickets-history-section
   .container
-    - @tickets.each do |ticket|
-      = render partial: 'ticket', locals: { ticket: ticket }
+    = render partial: 'ticket', collection: @tickets
