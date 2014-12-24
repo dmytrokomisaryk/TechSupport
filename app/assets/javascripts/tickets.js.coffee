@@ -1,12 +1,15 @@
 @Ticket =
   assign: (id)->
+    Spinner.show()
     $.ajax('/tickets/' + id + '/assign', {
       type: 'post',
       success: (response)->
+        Spinner.hide()
         $('#ticket_' + id).replaceWith(response);
     })
 
   reply: (id)->
+    Spinner.show()
     ticketContainer = $('#edit_ticket_' + id);
     formGroup = ticketContainer.children('.form-group')
     textArea = formGroup.children('#reply')
@@ -15,6 +18,7 @@
       type: 'post',
       contentType: 'application/json; charset=utf-8',
       success: (response)->
+        Spinner.hide()
         $('#ticket-section-' + id).replaceWith(response);
     })
 
@@ -27,6 +31,7 @@
     formGroup.children('.text').prop('disabled', false)
 
   update: (id) ->
+    Spinner.show()
     ticketContainer = $('#edit_ticket_' + id);
     formGroup = ticketContainer.children('.form-group')
     textArea = formGroup.children('.text')
@@ -36,6 +41,7 @@
       type: 'put',
       contentType: 'application/json; charset=utf-8',
       success: ->
+        Spinner.hide()
         self.cancelEdit(id)
     })
 
@@ -56,6 +62,7 @@
     divWithActions.children('.cancel_link').show()
 
   sendAnswer: (id) ->
+    Spinner.show()
     ticketContainer = $('#ticket_' + id)
     textArea = ticketContainer.children('div').children('.ticket-answer').children('#answer')
     self = @
@@ -64,6 +71,7 @@
       type: 'post',
       contentType: 'application/json; charset=utf-8',
       success: ->
+        Spinner.hide()
         self.cancelAnswer(id)
     })
 
@@ -76,8 +84,21 @@
     divWithActions.children('.cancel_link').hide()
 
   close: (id) ->
+    Spinner.show()
     $.ajax('/tickets/' + id + '/close', {
       type: 'post',
       success: (response)->
+        Spinner.hide()
         $('#ticket-section-' + id).replaceWith(response);
+    })
+
+  search: (input) ->
+    Spinner.show()
+    $.ajax('/tickets/search', {
+      data: '{"query":"' + $(input).val() + '"}',
+      type: 'post',
+      contentType: 'application/json; charset=utf-8',
+      success: (response)->
+        Spinner.hide()
+        $('#question-list').html(response);
     })

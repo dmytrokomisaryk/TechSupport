@@ -1,0 +1,82 @@
+header
+  background: #009AC7
+  height: 75px
+  color: white
+  h2
+    float: left
+    a
+      color: #ffffff!important
+      text-decoration: none!important
+  input
+    float: right
+    margin-top:  20px
+  .container
+    width: 600px
+
+.new-ticket-section
+  .new_ticket
+    background-color: #fff
+    border-color: #ddd
+    border-width: 1px
+    border-radius: 4px 4px
+    border-style: solid
+    margin: auto
+    padding: 15px
+    textarea
+      width: 100%
+      max-width: 100%
+
+.new-ticket-section,
+.tickets-history-section,
+.unassigned-tickets,
+.successfully_created
+  .container
+    width: 600px
+
+.tickets-history-section .edit_ticket_button,
+.tickets-history-section .update_ticket_button
+  text-decoration: none
+  font-size: 16px
+  margin-left: 10px
+
+.tickets-history-section .update_ticket_button,
+.tickets-history-section .cancel_link
+  display: none
+
+.tickets-history-section
+  .edit_ticket
+    .text
+      width: 100%
+      max-width: 100%
+  .close_ticket_button
+    background: red
+    float: right
+  .state-closed span
+    color: red
+  .reply_ticket_button
+    margin-top: 10px
+
+.unassigned-tickets .ticket-answer,
+.unassigned-tickets .send_ticket_button,
+.unassigned-tickets .cancel_link
+  display: none
+
+
+.unassigned-tickets
+  .ticket-answer
+    padding-bottom: 5px
+    textarea
+      width: 100%
+      max-width: 100%
+  .assign_ticket_button
+    background: #009AC7
+  .assign_ticket_button:host-context
+    background: cadetblue!important
+  .search
+    margin-top: 10px
+
+.successfully_created
+  .bs-callout-info
+    border-left-color: limegreen
+    h4
+      color: limegreen

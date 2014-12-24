@@ -1,4 +1,8 @@
 .unassigned-tickets
   .container
-    - @tickets.each do |ticket|
-      = render partial: 'ticket_answer', locals: { ticket: ticket }
+    %input{ type: 'text',
+            class: 'form-control search',
+            placeholder: 'Search by subject',
+            onkeyup: 'Ticket.search(this);' }
+    #question-list
+      = render partial: 'question', collection: @tickets

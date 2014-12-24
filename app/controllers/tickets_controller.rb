@@ -19,7 +19,11 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.create(ticket_params)
-    render :new
+    redirect_to action: :successfully_created, id: @ticket.id
+  end
+
+  def successfully_created
+
   end
 
   def update
@@ -30,19 +34,18 @@ class TicketsController < ApplicationController
   def answer
     current_ticket.answers.create(text: params[:answer], author: current_staff.full_name)
     current_ticket.send_answer_to_customer
-    render partial: 'ticket_answer', locals: { ticket: current_ticket }
+    render partial: 'question', locals: { ticket: current_ticket.reload }
   end
 
   def reply
     current_ticket.answers.create(text: params[:message], author: current_ticket.customer_name)
     current_ticket.send_reply_to_customer
-    current_ticket.reload
-    render partial: 'ticket', locals: { ticket: current_ticket }
+    render partial: 'ticket', locals: { ticket: current_ticket.reload }
   end
 
   def close
     current_ticket.close
-    render partial: 'ticket', locals: { ticket: current_ticket }
+    render partial: 'ticket', locals: { ticket: current_ticket.reload }
   end
 
   def assign
@@ -50,7 +53,12 @@ class TicketsController < ApplicationController
       current_ticket.update_attributes(staff_id: current_staff.id)
       current_ticket.assigned
     end
-    render partial: 'ticket_answer', locals: { ticket: current_ticket }
+    render partial: 'question', locals: { ticket: current_ticket.reload }
+  end
+
+  def search
+    @tickets = Ticket.search_by_subject(params[:query])
+    render partial: 'question', collection: @tickets
   end
 
   private
@@ -61,6 +69,6 @@ class TicketsController < ApplicationController
   end
 
   def ticket_params
-    params.require(:ticket).permit(:customer_name, :customer_email, :question, :answer)
+    params.require(:ticket).permit(:customer_name, :customer_email, :subject, :question, :answer)
   end
 end

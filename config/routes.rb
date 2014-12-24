@@ -15,9 +15,11 @@ TechSupport::Application.routes.draw do
       post :close
       post :assign
       post :reply
+      get :successfully_created
     end
     collection do
       get '/by_email/:email', action: 'by_email', as: 'by_email', constraints: { email: /[^\/]+/ }
+      post :search
     end
   end
 end

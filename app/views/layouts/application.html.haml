@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title
+      TechSupport
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %header
+      .container
+        %h2
+          = link_to 'Help Desc', '/'
+        - if current_staff
+          = button_to 'Logout', destroy_staff_session_path, method: :delete
+        - else
+          = button_to 'Login', '/staffs/sign_in'
+    #loader
+      = image_tag 'spinner.gif'
+    = yield

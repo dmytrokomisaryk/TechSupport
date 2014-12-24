@@ -9,6 +9,10 @@
   %p
   = form_for(ticket, remote: true) do |f|
     .form-group
+      %label{for: 'subject'} Subject:
+      = f.text_field :subject, disabled: true, class: :text
+    .form-group
+      %label{for: 'question'} Question?:
       = f.text_area :question, disabled: true, class: :text, rows: 7
       - ticket.answers.each do |answer|
         .bs-callout

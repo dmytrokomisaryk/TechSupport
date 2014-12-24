@@ -16,6 +16,7 @@ class Ticket < ActiveRecord::Base
   scope :unassigned, -> {  where(staff_id: nil).order_by_created_at_desc }
   scope :assigned_to_staff, -> (id) { where(staff_id: id).order_by_created_at_desc }
   scope :by_email, -> (email) { where(customer_email: email).order_by_created_at_desc }
+  scope :search_by_subject, -> (query) { where('subject like ?', "%#{query}%") }
 
   state_machine :state, initial: STATUSES[:unassigned] do
     event :assigned do

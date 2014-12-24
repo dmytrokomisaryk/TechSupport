@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20141223211458) do
   create_table "tickets", force: true do |t|
     t.string   "customer_name"
     t.string   "customer_email"
+    t.text     "subject"
     t.text     "question"
     t.integer  "state"
     t.integer  "staff_id"

@@ -8,6 +8,7 @@ describe TicketsController do
       password_confirmation: '12345678'
   )}
   let!(:ticket) { Ticket.create(
+      subject: 'test subject',
       question: 'test message',
       customer_email: 'costumer@example.com'
   )}
@@ -43,7 +44,7 @@ describe TicketsController do
     it 'should change question text' do
       question_text = 'updated question'
       put :update, id: ticket.id, question: question_text
-      expect(ticket.question).to eql(question_text)
+      expect(ticket.reload.question).to eql(question_text)
     end
   end
 
@@ -94,6 +95,13 @@ describe TicketsController do
     it 'should be closed' do
       post :close, id: ticket.id
       expect(ticket.reload.closed?).to be true
+    end
+  end
+
+  describe '#search' do
+    it 'should find similar subject' do
+      post :search, query: 'subj'
+      expect(assigns(:tickets)).to include(ticket)
     end
   end
 end
