@@ -19,7 +19,11 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.create(ticket_params)
-    redirect_to action: :successfully_created, id: @ticket.id
+    if @ticket.errors.blank?
+      redirect_to action: :successfully_created, id: @ticket.id
+    else
+      render action: :new
+    end
   end
 
   def successfully_created

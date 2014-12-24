@@ -7,11 +7,7 @@ describe TicketsController do
       password: '12345678',
       password_confirmation: '12345678'
   )}
-  let!(:ticket) { Ticket.create(
-      subject: 'test subject',
-      question: 'test message',
-      customer_email: 'costumer@example.com'
-  )}
+  let!(:ticket) { FactoryGirl.create(:ticket) }
   let!(:assigned_ticket) { Ticket.create(
       question: 'test message',
       customer_email: 'costumer@example.com',

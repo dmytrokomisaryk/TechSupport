@@ -4,6 +4,10 @@
       %h5
         Ask questions.
     = form_for(@ticket, html: {class: :new_ticket, onsubmit: 'Spinner.show();'}) do |f|
+      .bs-callout.bs-callout-danger
+        - @ticket.errors.full_messages.each do |message|
+          %p
+            = message
       .form-group
         %label{for: 'customer_name'} Name:
         = f.text_field :customer_name, id: :customer_name, class: 'form-control', placeholder: 'Enter name'
