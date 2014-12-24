@@ -11,7 +11,7 @@
               = message
       .form-group
         %label{for: 'customer_name'} Name:
-        = f.text_field :customer_name, id: :customer_name, class: 'form-control', placeholder: 'Enter name'
+        = f.text_field :customer_name, id: :customer_name, class: 'form-control', placeholder: 'Enter name', autofocus: true
       .form-group
         %label{for: 'customer_email'} Email:
         = f.text_field :customer_email, id: :customer_email, class: 'form-control', placeholder: 'Enter email', type: :email
