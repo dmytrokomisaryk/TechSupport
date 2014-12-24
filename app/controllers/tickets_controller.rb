@@ -28,33 +28,29 @@ class TicketsController < ApplicationController
   end
 
   def answer
-    ticket = current_ticket
-    ticket.answers.create(text: params[:answer], author: current_staff.full_name)
-    ticket.send_answer_to_customer
-    render partial: 'ticket_answer', locals: { ticket: ticket }
+    current_ticket.answers.create(text: params[:answer], author: current_staff.full_name)
+    current_ticket.send_answer_to_customer
+    render partial: 'ticket_answer', locals: { ticket: current_ticket }
   end
 
   def reply
-    ticket = current_ticket
-    ticket.answers.create(text: params[:message], author: ticket.customer_name)
-    ticket.send_reply_to_customer
-    ticket.reload
-    render partial: 'ticket', locals: { ticket: ticket }
+    current_ticket.answers.create(text: params[:message], author: current_ticket.customer_name)
+    current_ticket.send_reply_to_customer
+    current_ticket.reload
+    render partial: 'ticket', locals: { ticket: current_ticket }
   end
 
   def close
-    ticket = current_ticket
-    ticket.close
-    render partial: 'ticket', locals: { ticket: ticket }
+    current_ticket.close
+    render partial: 'ticket', locals: { ticket: current_ticket }
   end
 
   def assign
-    ticket = current_ticket
-    ticket.transaction do
-      ticket.update_attributes(staff_id: current_staff.id)
-      ticket.open
+    current_ticket.transaction do
+      current_ticket.update_attributes(staff_id: current_staff.id)
+      current_ticket.assigned
     end
-    render partial: 'ticket_answer', locals: { ticket: ticket }
+    render partial: 'ticket_answer', locals: { ticket: current_ticket }
   end
 
   private

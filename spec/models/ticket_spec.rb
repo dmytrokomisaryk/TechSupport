@@ -8,7 +8,7 @@ describe Ticket do
         question: 'test'
     ) }
     it 'should send email to customer' do
-      expect { ticket.notify_customer }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { ticket }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 end

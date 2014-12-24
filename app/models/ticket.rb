@@ -18,7 +18,7 @@ class Ticket < ActiveRecord::Base
   scope :by_email, -> (email) { where(customer_email: email).order_by_created_at_desc }
 
   state_machine :state, initial: STATUSES[:unassigned] do
-    event :open do
+    event :assigned do
       transition STATUSES[:unassigned] => STATUSES[:open]
     end
 
