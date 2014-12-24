@@ -5,7 +5,9 @@
 
 install rvm
 ```sh
-$ curl -sSL https://get.rvm.io | bash -s stable --ruby
+$ gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+$ curl -sSL https://get.rvm.io | bash
+$ rvm install 2.0.0 #in new terminal
 ```
 create gemset
 ```sh
@@ -57,4 +59,4 @@ User: admin@tech-support.com
 Password: password
 ```
 
-Click `Staff` tab then click 'New Staff' button.
+Click `Staff` tab then click `New Staff` button.
