@@ -37,7 +37,7 @@ class TicketsController < ApplicationController
   def answer
     current_ticket.answers.create(text: params[:answer], author: current_staff.full_name)
     current_ticket.send_answer_to_customer
-    render partial: 'question', locals: { ticket: current_ticket.reload }
+    render partial: 'question', locals: { question: current_ticket.reload }
   end
 
   def reply
@@ -56,7 +56,7 @@ class TicketsController < ApplicationController
       current_ticket.update_attributes(staff_id: current_staff.id)
       current_ticket.assigned
     end
-    render partial: 'question', locals: { ticket: current_ticket.reload }
+    render partial: 'question', locals: { question: current_ticket.reload }
   end
 
   def search
